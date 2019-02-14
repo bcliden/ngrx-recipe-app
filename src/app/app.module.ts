@@ -8,16 +8,11 @@ import { AppRoutingModule } from "@app/app-routing.module";
 import { AppComponent } from "@app/app.component";
 import { AuthService } from "@app/services/auth.service";
 import { ApiService } from "@app/services/api.service";
+import { AppStoreModule } from "./store/app-store.module";
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    StoreModule.forRoot({}),
-    StoreDevtoolsModule.instrument()
-  ],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, AppStoreModule],
   providers: [AuthService, ApiService],
   bootstrap: [AppComponent]
 })
