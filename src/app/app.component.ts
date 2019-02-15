@@ -2,6 +2,12 @@ import { Component, OnInit } from "@angular/core";
 import { AppState } from "./store/app-store.module";
 import { Store } from "@ngrx/store";
 import { AddError } from "./store/actions/error.action";
+import {
+  LoginUser,
+  SetCurrentUser,
+  SetInitialUser
+} from "./store/actions/auth.action";
+import { AuthDTO } from "./models/auth";
 
 @Component({
   selector: "app-root",
@@ -14,6 +20,12 @@ export class AppComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.store.dispatch(new AddError("why is my mouth always wet"));
+    // this.store.dispatch(
+    //   new LoginUser(<AuthDTO>{
+    //     username: "username",
+    //     password: "password"
+    //   })
+    // );
+    this.store.dispatch(new SetInitialUser());
   }
 }

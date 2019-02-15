@@ -5,19 +5,25 @@ import { StoreModule, ActionReducerMap } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 
 import { errorReducer, ErrorState } from "./reducers/error.reducer";
+import { AuthEffects } from "./effects/auth.effects";
+import { AuthState, authReducer } from "./reducers/auth.reducer";
 
 export interface AppState {
   error: ErrorState;
+  auth: AuthState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
-  error: errorReducer
+  error: errorReducer,
+  auth: authReducer
 };
+
+export const effects = [AuthEffects];
 
 @NgModule({
   imports: [
     CommonModule,
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot(effects),
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument()
   ]

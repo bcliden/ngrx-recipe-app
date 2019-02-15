@@ -5,6 +5,7 @@ import { environment } from "@env/environment";
 import { AuthType, AuthDTO } from "@app/models/auth";
 import { Observable } from "rxjs";
 import { User } from "@app/models/user";
+import { mergeMap, tap } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
@@ -13,7 +14,11 @@ export class AuthService {
   private api: string = environment.api_server + "/auth";
 
   private auth(authType: AuthType, data: AuthDTO): Observable<User> {
-    return this.http.post<User>(`${this.api}/${authType}`, data);
+    return this.http.post<User>(`${this.api}/${authType}`, data).pipe(
+      // mergeMap((user): User => this.token = user.token)
+      tap((user: User) => (this.token = user.token)),
+      tap((user: User) => console.log(this.token))
+    );
   }
 
   whoami(): Observable<User> {
