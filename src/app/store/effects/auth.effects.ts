@@ -26,11 +26,16 @@ export class AuthEffects {
 
   @Effect()
   setInitialUser$: Observable<Action> = this.action$.pipe(
+    // find observables of this type
     ofType<SetInitialUser>(AuthActionTypes.SET_INITIAL_USER),
+    // remove any old errors
     tap(() => this.store.dispatch(new RemoveError())),
+    // merge action into appropriate authService method
     mergeMap((action: SetInitialUser) =>
       this.authService.whoami().pipe(
+        // dispatch set current
         map((user: User) => new SetCurrentUser(user)),
+        // else add error
         catchError(err => of(new AddError(err)))
       )
     )
