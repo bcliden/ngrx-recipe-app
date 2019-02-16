@@ -8,6 +8,7 @@ import {
   SetInitialUser
 } from "./store/actions/auth.action";
 import { AuthDTO } from "./models/auth";
+import { MessageService } from "primeng/components/common/messageservice";
 
 @Component({
   selector: "app-root",
@@ -17,7 +18,10 @@ import { AuthDTO } from "./models/auth";
 export class AppComponent implements OnInit {
   title = "recipe-app";
 
-  constructor(private store: Store<AppState>) {}
+  constructor(
+    private store: Store<AppState>,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit() {
     // this.store.dispatch(
@@ -27,5 +31,18 @@ export class AppComponent implements OnInit {
     //   })
     // );
     this.store.dispatch(new SetInitialUser());
+    this.store
+      .select(state => state.error)
+      .subscribe(val => this.showError(val.error));
+  }
+
+  showError(err) {
+    if (err) {
+      this.messageService.add({
+        severity: "error",
+        summary: "Error Message",
+        detail: err.message || "Internal server error"
+      });
+    }
   }
 }
