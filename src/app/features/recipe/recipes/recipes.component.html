@@ -1,0 +1,26 @@
+<p-card *ngFor="let recipe of (recipes | async)" header="{{ recipe.title }}">
+  <p-header class="updated">Updated: {{ recipe.updated }}</p-header>
+  <div>{{ recipe.description }}</div>
+  <p-footer>
+    <button
+      pButton
+      label="upvote"
+      icon="fa fa-arrow-up"
+      class="ui-button-info"
+      style="margin-right: 1rem"
+    ></button>
+    <button
+      pButton
+      label="downvote"
+      icon="fa fa-arrow-down"
+      class="ui-button-danger"
+      style="margin-right: 1rem"
+    ></button>
+    <button
+      pButton
+      label="bookmark"
+      icon="fa fa-bookmark"
+      class="ui-button-warning"
+    ></button>
+  </p-footer>
+</p-card>

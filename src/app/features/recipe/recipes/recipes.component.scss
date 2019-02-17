@@ -1,26 +1,26 @@
 // p-card {
-// margin: 1rem;
+//   margin: 1rem;
 // }
 
 h2 {
   margin-top: 0;
 }
 
-.UserCard {
+.RecipeCard {
   &-info {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
   }
 
-  &-links {
-    a {
-      margin-right: 2rem;
-    }
-  }
+  // &-links {
+  //   a {
+  //     margin-right: 2rem;
+  //   }
+  // }
 }
 
-.registered {
+.updated {
   float: right;
-  margin: 0.5rem;
+  margin: 1rem;
 }
