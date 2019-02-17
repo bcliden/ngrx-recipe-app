@@ -3,10 +3,8 @@ import { Routes, RouterModule } from "@angular/router";
 import { AuthComponent } from "./components/auth/auth.component";
 
 const routes: Routes = [
-  {
-    path: "auth",
-    component: AuthComponent
-  }
+  { path: "auth", component: AuthComponent },
+  { path: "users", loadChildren: "@app/features/user/user.module#UserModule" }
 ];
 
 @NgModule({
