@@ -5,6 +5,7 @@ import { Store } from "@ngrx/store";
 import { Recipe } from "@app/models/recipe";
 import { AppState } from "@app/features/recipe/state";
 import { LoadRecipes } from "../state/recipe.action";
+import { selectAllRecipes } from "../state/recipe.selector";
 
 @Component({
   selector: "app-recipes",
@@ -17,6 +18,6 @@ export class RecipesComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new LoadRecipes());
-    this.recipes = this.store.select(state => state.recipes.recipes);
+    this.recipes = this.store.select(selectAllRecipes);
   }
 }
