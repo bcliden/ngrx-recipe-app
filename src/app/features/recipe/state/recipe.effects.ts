@@ -54,8 +54,8 @@ export class RecipeEffects {
         return of(new LoadRecipeSuccess());
       } else {
         // load recipe
-        this.apiService.getRecipe(action.payload).pipe(
-          map(res => new LoadRecipeSuccess(res)),
+        return this.apiService.getRecipe(action.payload).pipe(
+          mergeMap(res => of(new LoadRecipeSuccess(res))),
           catchError(err => of(new AddError(err.error)))
         );
       }
