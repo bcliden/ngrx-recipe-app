@@ -5,7 +5,6 @@ import { Entity } from "@app/models/entity";
 export interface RecipeState {
   recipes: Entity<Recipe>;
   loading: boolean;
-  loaded: boolean;
   selectedRecipe?: string;
 }
 
