@@ -2,9 +2,16 @@
 
 body {
   // background-color: #3e4551;
+  background-color: #efefef;
   margin: 0;
 }
 
+// p-card behavior
 .ui-card {
-  margin: 1rem;
+  margin: 1rem 0;
+}
+@media (max-width: 768px) {
+  .ui-card {
+    margin: 0;
+  }
 }

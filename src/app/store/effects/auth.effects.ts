@@ -36,7 +36,10 @@ export class AuthEffects {
         // dispatch set current
         map((user: User) => new SetCurrentUser(user)),
         // else add error
-        catchError(err => of(new AddError(err.error)))
+        catchError(err => {
+          this.authService.token = null;
+          return of(new AddError(err.error));
+        })
       )
     )
   );
@@ -48,7 +51,10 @@ export class AuthEffects {
     mergeMap((action: LoginUser) =>
       this.authService.login(action.payload).pipe(
         map((user: User) => new SetCurrentUser(user)),
-        catchError(err => of(new AddError(err.error)))
+        catchError(err => {
+          this.authService.token = null;
+          return of(new AddError(err.error));
+        })
       )
     )
   );
@@ -60,7 +66,10 @@ export class AuthEffects {
     mergeMap((action: RegisterUser) =>
       this.authService.register(action.payload).pipe(
         map((user: User) => new SetCurrentUser(user)),
-        catchError(err => of(new AddError(err.error)))
+        catchError(err => {
+          this.authService.token = null;
+          return of(new AddError(err.error));
+        })
       )
     )
   );

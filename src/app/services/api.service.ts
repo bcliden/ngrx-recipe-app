@@ -56,7 +56,7 @@ export class ApiService {
   }
 
   createRecipe(data: RecipeDTO): Observable<Recipe> {
-    return this.request("POST", "recipes", data);
+    return this.request("POST", "recipes/", data);
   }
 
   updateRecipe(id: string, data: Partial<RecipeDTO>): Observable<Recipe> {

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Store, Action } from "@ngrx/store";
 import { Effect, Actions, ofType } from "@ngrx/effects";
-import { tap, mergeMap, catchError, map } from "rxjs/operators";
+import { tap, mergeMap, catchError, map, withLatestFrom } from "rxjs/operators";
 import { Observable, of } from "rxjs";
 
 import { AppState } from "@app/features/recipe/state";
@@ -9,7 +9,15 @@ import { ApiService } from "@app/services/api.service";
 import {
   LoadRecipes,
   LoadRecipesSuccess,
-  RecipeActionTypes
+  RecipeActionTypes,
+  CreateRecipe,
+  CreateRecipeSuccess,
+  UpdateRecipe,
+  UpdateRecipeSuccess,
+  DeleteRecipe,
+  DeleteRecipeSuccess,
+  LoadRecipe,
+  LoadRecipeSuccess
 } from "./recipe.action";
 import { RemoveError, AddError } from "@app/store/actions/error.action";
 
@@ -28,6 +36,63 @@ export class RecipeEffects {
     mergeMap(() =>
       this.apiService.getRecipes().pipe(
         map(users => new LoadRecipesSuccess(users)),
+        catchError(err => of(new AddError(err.error)))
+      )
+    )
+  );
+
+  @Effect()
+  loadRecipe$: Observable<Action> = this.action$.pipe(
+    ofType<LoadRecipe>(RecipeActionTypes.LOAD_RECIPE),
+    tap(() => this.store.dispatch(new RemoveError())),
+    withLatestFrom(this.store),
+    mergeMap(([action, state]: [LoadRecipe, AppState]) => {
+      // check if recipe is in state already
+      const recipe = state.recipes.recipes[action.payload];
+      if (recipe) {
+        // do nothing
+        return of(new LoadRecipeSuccess());
+      } else {
+        // load recipe
+        this.apiService.getRecipe(action.payload).pipe(
+          map(res => new LoadRecipeSuccess(res)),
+          catchError(err => of(new AddError(err.error)))
+        );
+      }
+    })
+  );
+
+  @Effect()
+  createRecipe$: Observable<Action> = this.action$.pipe(
+    ofType<CreateRecipe>(RecipeActionTypes.CREATE_RECIPE),
+    tap(() => this.store.dispatch(new RemoveError())),
+    mergeMap(action =>
+      this.apiService.createRecipe(action.payload).pipe(
+        map(recipe => new CreateRecipeSuccess(recipe)),
+        catchError(err => of(new AddError(err.error)))
+      )
+    )
+  );
+
+  @Effect()
+  updateRecipe$: Observable<Action> = this.action$.pipe(
+    ofType<UpdateRecipe>(RecipeActionTypes.UPDATE_RECIPE),
+    tap(() => this.store.dispatch(new RemoveError())),
+    mergeMap(action =>
+      this.apiService.updateRecipe(action.payload.id, action.payload).pipe(
+        map(recipe => new UpdateRecipeSuccess(recipe)),
+        catchError(err => of(new AddError(err.error)))
+      )
+    )
+  );
+
+  @Effect()
+  deleteRecipe$: Observable<Action> = this.action$.pipe(
+    ofType<DeleteRecipe>(RecipeActionTypes.DELETE_RECIPE),
+    tap(() => this.store.dispatch(new RemoveError())),
+    mergeMap(action =>
+      this.apiService.deleteRecipe(action.payload).pipe(
+        map(recipe => new DeleteRecipeSuccess(recipe.id)),
         catchError(err => of(new AddError(err.error)))
       )
     )

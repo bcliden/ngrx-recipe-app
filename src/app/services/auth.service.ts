@@ -16,8 +16,7 @@ export class AuthService {
   private auth(authType: AuthType, data: AuthDTO): Observable<User> {
     return this.http.post<User>(`${this.api}/${authType}`, data).pipe(
       // mergeMap((user): User => this.token = user.token)
-      tap((user: User) => (this.token = user.token)),
-      tap((user: User) => console.log(this.token))
+      tap((user: User) => (this.token = user.token))
     );
   }
 

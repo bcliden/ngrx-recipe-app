@@ -1,5 +1,5 @@
 <p-card *ngFor="let recipe of (recipes | async)" header="{{ recipe.title }}">
-  <p-header class="updated">Updated: {{ recipe.updated }}</p-header>
+  <p-header class="updated">Updated: {{ recipe.updated | date }}</p-header>
   <div class="desc">{{ recipe.description }}</div>
   <p-footer>
     <button pButton icon="fa fa-arrow-up" class="ui-button-info"></button>

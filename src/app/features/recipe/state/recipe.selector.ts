@@ -12,3 +12,11 @@ export const selectAllRecipes = createSelector(
     return Object.keys(recipes).map(id => recipes[id]);
   }
 );
+
+export const selectCurrentIdea = createSelector(
+  selectRecipeState,
+  (recipeState: RecipeState) => {
+    const { recipes, selectedRecipe } = recipeState;
+    return recipes[selectedRecipe];
+  }
+);

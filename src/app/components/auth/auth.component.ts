@@ -4,8 +4,13 @@ import { Store } from "@ngrx/store";
 
 import { AppState } from "@app/store/app-store.module";
 import { validateWhitespace } from "@app/utility/validators";
-import { LoginUser, RegisterUser } from "@app/store/actions/auth.action";
+import {
+  LoginUser,
+  RegisterUser,
+  SetInitialUser
+} from "@app/store/actions/auth.action";
 import { AuthDTO } from "@app/models/auth";
+import { AuthService } from "@app/services/auth.service";
 
 @Component({
   selector: "app-auth",
@@ -20,9 +25,16 @@ export class AuthComponent implements OnInit {
   //   password: new FormControl("", [Validators.required])
   // });
 
-  constructor(private fb: FormBuilder, private store: Store<AppState>) {}
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<AppState>,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
+    if (this.authService.token) {
+      this.store.dispatch(new SetInitialUser());
+    }
     this.authForm = this.fb.group({
       username: this.fb.control("", [Validators.required, validateWhitespace]),
       password: this.fb.control("", [Validators.required, validateWhitespace])

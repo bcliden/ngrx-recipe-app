@@ -30,7 +30,6 @@ export class AppComponent implements OnInit {
     //     password: "password"
     //   })
     // );
-    this.store.dispatch(new SetInitialUser());
     this.store
       .select(state => state.error)
       .subscribe(val => this.showError(val.error));

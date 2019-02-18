@@ -14,6 +14,7 @@ export interface Recipe {
 }
 
 export interface RecipeDTO {
+  id?: string;
   title: string;
   description: string;
 }

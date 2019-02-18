@@ -6,6 +6,7 @@ export interface RecipeState {
   recipes: Entity<Recipe>;
   loading: boolean;
   loaded: boolean;
+  selectedRecipe?: string;
 }
 
 export interface AppState extends Store.AppState {
