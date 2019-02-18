@@ -1,4 +1,4 @@
-import { ActionsUnion, AuthActionTypes } from "@app/store/actions/auth.action";
+import { ActionsUnion, AuthActionTypes } from "@app/store/actions/auth.actions";
 import { User } from "@app/models/user";
 
 export interface AuthState {

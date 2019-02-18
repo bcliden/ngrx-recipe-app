@@ -13,7 +13,7 @@ export const selectAllRecipes = createSelector(
   }
 );
 
-export const selectCurrentIdea = createSelector(
+export const selectCurrentRecipe = createSelector(
   selectRecipeState,
   (recipeState: RecipeState) => {
     const { recipes, selectedRecipe } = recipeState;

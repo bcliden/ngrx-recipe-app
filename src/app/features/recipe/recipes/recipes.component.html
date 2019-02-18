@@ -1,11 +1,16 @@
-<p-card *ngFor="let recipe of (recipes | async)" header="{{ recipe.title }}">
-  <p-header class="updated">Updated: {{ recipe.updated | date }}</p-header>
+<p-card *ngFor="let recipe of (recipes | async)">
+  <h2>
+    <a [routerLink]="['/recipes', recipe.id]">{{ recipe.title }}</a>
+  </h2>
+  <p-header class="updated">Updated: {{ recipe.updated | date }} </p-header>
   <div class="desc">{{ recipe.description }}</div>
   <p-footer>
     <button pButton icon="fa fa-arrow-up" class="ui-button-info"></button>
     <span class="votes">{{ recipe.upvotes - recipe.downvotes || 0 }}</span>
     <button pButton icon="fa fa-arrow-down" class="ui-button-danger"></button>
-    <a>Comments: ({{ recipe.comments.length || 0 }})</a>
+    <a [routerLink]="['/recipes', recipe.id]"
+      >Comments: ({{ recipe.comments.length || 0 }})
+    </a>
     <button
       pButton
       label="bookmark"

@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: "recipes",
     loadChildren: "@app/features/recipe/recipe.module#RecipeModule"
+  },
+  {
+    path: "**",
+    redirectTo: "recipes"
   }
 ];
 

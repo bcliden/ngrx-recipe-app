@@ -4,7 +4,7 @@ import { Store } from "@ngrx/store";
 
 import { Recipe } from "@app/models/recipe";
 import { AppState } from "@app/features/recipe/state";
-import { LoadRecipes } from "../state/recipe.action";
+import { LoadRecipes } from "../state/recipe.actions";
 import { selectAllRecipes } from "../state/recipe.selector";
 
 @Component({

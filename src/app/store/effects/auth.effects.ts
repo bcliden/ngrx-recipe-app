@@ -11,9 +11,9 @@ import {
   SetCurrentUser,
   LoginUser,
   RegisterUser
-} from "../actions/auth.action";
+} from "../actions/auth.actions";
 import { User } from "@app/models/user";
-import { AddError, RemoveError } from "../actions/error.action";
+import { AddError, RemoveError } from "../actions/error.actions";
 import { AppState } from "../app-store.module";
 
 @Injectable()

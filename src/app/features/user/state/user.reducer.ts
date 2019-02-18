@@ -1,5 +1,5 @@
 import { UserState } from ".";
-import { ActionsUnion, UserActionTypes } from "./user.action";
+import { ActionsUnion, UserActionTypes } from "./user.actions";
 
 const initialState: UserState = {
   loaded: false,

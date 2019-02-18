@@ -18,8 +18,8 @@ import {
   DeleteRecipeSuccess,
   LoadRecipe,
   LoadRecipeSuccess
-} from "./recipe.action";
-import { RemoveError, AddError } from "@app/store/actions/error.action";
+} from "./recipe.actions";
+import { RemoveError, AddError } from "@app/store/actions/error.actions";
 
 @Injectable()
 export class RecipeEffects {

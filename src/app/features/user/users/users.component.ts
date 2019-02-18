@@ -4,7 +4,7 @@ import { Store } from "@ngrx/store";
 
 import { User } from "@app/models/user";
 import { AppState } from "../state";
-import { LoadUsers } from "../state/user.action";
+import { LoadUsers } from "../state/user.actions";
 
 @Component({
   selector: "app-users",

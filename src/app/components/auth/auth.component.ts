@@ -8,7 +8,7 @@ import {
   LoginUser,
   RegisterUser,
   SetInitialUser
-} from "@app/store/actions/auth.action";
+} from "@app/store/actions/auth.actions";
 import { AuthDTO } from "@app/models/auth";
 import { AuthService } from "@app/services/auth.service";
 
@@ -25,16 +25,9 @@ export class AuthComponent implements OnInit {
   //   password: new FormControl("", [Validators.required])
   // });
 
-  constructor(
-    private fb: FormBuilder,
-    private store: Store<AppState>,
-    private authService: AuthService
-  ) {}
+  constructor(private fb: FormBuilder, private store: Store<AppState>) {}
 
   ngOnInit() {
-    if (this.authService.token) {
-      this.store.dispatch(new SetInitialUser());
-    }
     this.authForm = this.fb.group({
       username: this.fb.control("", [Validators.required, validateWhitespace]),
       password: this.fb.control("", [Validators.required, validateWhitespace])

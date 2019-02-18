@@ -1,5 +1,5 @@
 import { RecipeState } from ".";
-import { ActionsUnion, RecipeActionTypes } from "./recipe.action";
+import { ActionsUnion, RecipeActionTypes } from "./recipe.actions";
 
 const initialState: RecipeState = {
   recipes: {},

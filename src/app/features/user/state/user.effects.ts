@@ -4,9 +4,9 @@ import { Store, Action } from "@ngrx/store";
 import { AppState } from ".";
 import { ApiService } from "@app/services/api.service";
 import { Observable, of } from "rxjs";
-import { LoadUsers, UserActionTypes, LoadUsersSuccess } from "./user.action";
+import { LoadUsers, UserActionTypes, LoadUsersSuccess } from "./user.actions";
 import { mergeMap, catchError, map, tap } from "rxjs/operators";
-import { AddError, RemoveError } from "@app/store/actions/error.action";
+import { AddError, RemoveError } from "@app/store/actions/error.actions";
 
 @Injectable()
 export class UserEffects {

@@ -1,4 +1,4 @@
-import { ActionsUnion, ErrorActionTypes } from "../actions/error.action";
+import { ActionsUnion, ErrorActionTypes } from "../actions/error.actions";
 
 export interface ErrorState {
   error: any;
