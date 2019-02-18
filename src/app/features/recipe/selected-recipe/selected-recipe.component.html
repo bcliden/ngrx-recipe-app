@@ -1,26 +1,9 @@
-<div *ngIf="recipe">
-  <p-card>
-    <h2>
-      <a>{{ recipe.title }}</a>
-    </h2>
-    <p-header class="updated">Updated: {{ recipe.updated | date }} </p-header>
-    <div class="desc">{{ recipe.description }}</div>
-    <p-footer>
-      <button pButton icon="fa fa-arrow-up" class="ui-button-info"></button>
-      <span class="votes">{{ recipe.upvotes - recipe.downvotes || 0 }}</span>
-      <button pButton icon="fa fa-arrow-down" class="ui-button-danger"></button>
-      <a>Comments: ({{ recipe.comments.length || 0 }}) </a>
-      <button
-        pButton
-        label="bookmark"
-        icon="fa fa-bookmark"
-        class="ui-button-warning"
-        style="float: right"
-      ></button>
-    </p-footer>
+<ng-container *ngIf="!(loading | async) && selectedRecipe">
+  <app-recipe [recipe]="selectedRecipe"></app-recipe>
+  <p-card header="Comments">
+    <p *ngFor="let comment of selectedRecipe.comments">
+      <span class="commentAuthor">{{ comment?.author?.username }}: </span
+      >{{ comment.comment }}
+    </p>
   </p-card>
-
-  <p-card *ngFor="let comment of recipe.comments"
-    >{{ console.log(comment) }}{{ comment.comment }}</p-card
-  >
-</div>
+</ng-container>

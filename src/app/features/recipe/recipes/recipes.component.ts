@@ -5,7 +5,7 @@ import { Store } from "@ngrx/store";
 import { Recipe } from "@app/models/recipe";
 import { AppState } from "@app/features/recipe/state";
 import { LoadRecipes } from "../state/recipe.actions";
-import { selectAllRecipes } from "../state/recipe.selector";
+import { selectAllRecipes, selectRecipeLoader } from "../state/recipe.selector";
 
 @Component({
   selector: "app-recipes",
@@ -14,10 +14,12 @@ import { selectAllRecipes } from "../state/recipe.selector";
 })
 export class RecipesComponent implements OnInit {
   recipes: Observable<Recipe[]>;
+  loading: Observable<boolean>;
   constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
     this.store.dispatch(new LoadRecipes());
     this.recipes = this.store.select(selectAllRecipes);
+    this.loading = this.store.select(selectRecipeLoader);
   }
 }

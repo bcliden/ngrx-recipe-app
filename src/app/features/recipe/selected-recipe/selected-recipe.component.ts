@@ -1,9 +1,13 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { AppState } from "../state";
-import { Store } from "@ngrx/store";
-import { selectCurrentRecipe } from "../state/recipe.selector";
-import { Subscription } from "rxjs";
+import { Store, select } from "@ngrx/store";
+import {
+  selectCurrentRecipe,
+  selectRecipeLoader
+} from "../state/recipe.selector";
+import { Subscription, Observable, Subject } from "rxjs";
 import { Recipe } from "@app/models/recipe";
+import { takeUntil } from "rxjs/operators";
 
 @Component({
   selector: "app-selected-recipe",
@@ -11,17 +15,27 @@ import { Recipe } from "@app/models/recipe";
   styleUrls: ["./selected-recipe.component.scss"]
 })
 export class SelectedRecipeComponent implements OnInit, OnDestroy {
-  private subscription$: Subscription;
-  recipe: Recipe;
+  selectedRecipe: Recipe;
+  loading$: Observable<boolean>;
+  private unsubscribe$ = new Subject<void>();
+
   constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.subscription$ = this.store
-      .select(selectCurrentRecipe)
-      .subscribe(val => (this.recipe = val));
+    const recipe$ = this.store
+      // .select(selectCurrentRecipe)
+      // .pipe(tap(console.log))
+      .pipe(
+        select(selectCurrentRecipe),
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe(val => (this.selectedRecipe = val));
+
+    this.loading$ = this.store.select(selectRecipeLoader);
   }
 
   ngOnDestroy() {
-    this.subscription$.unsubscribe();
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

@@ -31,15 +31,15 @@ export class AppComponent implements OnInit {
     }
     this.store
       .select(state => state.error)
-      .subscribe(val => this.showError(val.error), err => console.log(err));
+      .subscribe(val => this.showError(val));
   }
 
-  showError(err) {
-    if (err) {
+  showError(val) {
+    if (val && val.error) {
       this.messageService.add({
         severity: "error",
         summary: "Error Message",
-        detail: err.message || "Internal server error"
+        detail: val.error.message || "Internal server error"
       });
     }
   }

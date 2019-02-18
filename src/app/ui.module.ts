@@ -7,9 +7,10 @@ import { ButtonModule } from "primeng/button";
 import { ToastModule } from "primeng/toast";
 import { MessageService } from "primeng/components/common/messageservice";
 import { MenubarModule } from "primeng/menubar";
+import { RecipeComponent } from "./components/recipe/recipe.component";
 
 @NgModule({
-  declarations: [],
+  declarations: [RecipeComponent],
   imports: [
     CommonModule,
     CardModule,
@@ -23,7 +24,8 @@ import { MenubarModule } from "primeng/menubar";
     InputTextModule,
     ButtonModule,
     ToastModule,
-    MenubarModule
+    MenubarModule,
+    RecipeComponent
   ],
   providers: [MessageService]
 })

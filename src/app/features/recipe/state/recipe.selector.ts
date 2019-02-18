@@ -20,3 +20,8 @@ export const selectCurrentRecipe = createSelector(
     return recipes[selectedRecipe];
   }
 );
+
+export const selectRecipeLoader = createSelector(
+  selectRecipeState,
+  (recipeState: RecipeState) => recipeState.loading
+);
