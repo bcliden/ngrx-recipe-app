@@ -28,6 +28,10 @@ export function recipeReducer(
       return { ...state, loading: true, loaded: false };
     case RecipeActionTypes.DELETE_RECIPE:
       return { ...state, loading: true, loaded: false };
+    case RecipeActionTypes.UPVOTE_RECIPE:
+      return { ...state, loading: true, loaded: false };
+    case RecipeActionTypes.DOWNVOTE_RECIPE:
+      return { ...state, loading: true, loaded: false };
 
     case RecipeActionTypes.LOAD_RECIPES_SUCCESS:
       return {

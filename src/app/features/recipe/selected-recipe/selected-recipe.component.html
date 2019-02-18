@@ -1,5 +1,9 @@
 <ng-container *ngIf="!(loading | async) && selectedRecipe">
-  <app-recipe [recipe]="selectedRecipe"></app-recipe>
+  <app-recipe
+    [recipe]="selectedRecipe"
+    (onUpvote)="upvote(selectedRecipe.id)"
+    (onDownvote)="downvote(selectedRecipe.id)"
+  ></app-recipe>
   <p-card header="Comments">
     <p *ngFor="let comment of selectedRecipe.comments">
       <span class="commentAuthor">{{ comment?.author?.username }}: </span

@@ -17,7 +17,9 @@ import {
   DeleteRecipe,
   DeleteRecipeSuccess,
   LoadRecipe,
-  LoadRecipeSuccess
+  LoadRecipeSuccess,
+  UpvoteRecipe,
+  DownvoteRecipe
 } from "./recipe.actions";
 import { RemoveError, AddError } from "@app/store/actions/error.actions";
 
@@ -93,6 +95,30 @@ export class RecipeEffects {
     mergeMap(action =>
       this.apiService.deleteRecipe(action.payload).pipe(
         map(recipe => new DeleteRecipeSuccess(recipe.id)),
+        catchError(err => of(new AddError(err.error)))
+      )
+    )
+  );
+
+  @Effect()
+  upvoteRecipe$: Observable<Action> = this.action$.pipe(
+    ofType<UpvoteRecipe>(RecipeActionTypes.UPVOTE_RECIPE),
+    tap(() => this.store.dispatch(new RemoveError())),
+    mergeMap(action =>
+      this.apiService.upvoteRecipe(action.payload).pipe(
+        map(recipe => new UpdateRecipeSuccess(recipe)),
+        catchError(err => of(new AddError(err.error)))
+      )
+    )
+  );
+
+  @Effect()
+  downvoteRecipe$: Observable<Action> = this.action$.pipe(
+    ofType<DownvoteRecipe>(RecipeActionTypes.DOWNVOTE_RECIPE),
+    tap(() => this.store.dispatch(new RemoveError())),
+    mergeMap(action =>
+      this.apiService.downvoteRecipe(action.payload).pipe(
+        map(recipe => new UpdateRecipeSuccess(recipe)),
         catchError(err => of(new AddError(err.error)))
       )
     )

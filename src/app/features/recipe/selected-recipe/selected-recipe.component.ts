@@ -8,6 +8,7 @@ import {
 import { Subscription, Observable, Subject } from "rxjs";
 import { Recipe } from "@app/models/recipe";
 import { takeUntil } from "rxjs/operators";
+import { UpvoteRecipe, DownvoteRecipe } from "../state/recipe.actions";
 
 @Component({
   selector: "app-selected-recipe",
@@ -23,12 +24,8 @@ export class SelectedRecipeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const recipe$ = this.store
-      // .select(selectCurrentRecipe)
-      // .pipe(tap(console.log))
-      .pipe(
-        select(selectCurrentRecipe),
-        takeUntil(this.unsubscribe$)
-      )
+      .select(selectCurrentRecipe)
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe(val => (this.selectedRecipe = val));
 
     this.loading$ = this.store.select(selectRecipeLoader);
@@ -37,5 +34,12 @@ export class SelectedRecipeComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  upvote(id: string) {
+    this.store.dispatch(new UpvoteRecipe(id));
+  }
+  downvote(id: string) {
+    this.store.dispatch(new DownvoteRecipe(id));
   }
 }

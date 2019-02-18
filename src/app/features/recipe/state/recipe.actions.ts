@@ -15,7 +15,10 @@ export enum RecipeActionTypes {
   UPDATE_RECIPE_SUCCESS = "[Recipe] Update Recipe Success",
 
   DELETE_RECIPE = "[Recipe] Delete Recipe",
-  DELETE_RECIPE_SUCCESS = "[Recipe] Delete Recipe Success"
+  DELETE_RECIPE_SUCCESS = "[Recipe] Delete Recipe Success",
+
+  UPVOTE_RECIPE = "[Recipe] Upvote Recipe",
+  DOWNVOTE_RECIPE = "[Recipe] Downvote Recipe"
 }
 
 // load
@@ -71,6 +74,17 @@ export class DeleteRecipeSuccess implements Action {
   constructor(public payload: string) {}
 }
 
+// voting
+export class UpvoteRecipe implements Action {
+  readonly type = RecipeActionTypes.UPVOTE_RECIPE;
+  constructor(public payload: string) {}
+}
+
+export class DownvoteRecipe implements Action {
+  readonly type = RecipeActionTypes.DOWNVOTE_RECIPE;
+  constructor(public payload: string) {}
+}
+
 export type ActionsUnion =
   | LoadRecipes
   | LoadRecipesSuccess
@@ -81,4 +95,6 @@ export type ActionsUnion =
   | UpdateRecipe
   | UpdateRecipeSuccess
   | DeleteRecipe
-  | DeleteRecipeSuccess;
+  | DeleteRecipeSuccess
+  | UpvoteRecipe
+  | DownvoteRecipe;
