@@ -1,0 +1,15 @@
+.endbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.loggedIn {
+  margin-right: 1rem;
+  font-style: italic;
+}
+
+// adds correct border but pushes down menu bar?
+// ::ng-deep .ui-state-active {
+//   border-bottom: 2px solid #7b95a3;
+// }

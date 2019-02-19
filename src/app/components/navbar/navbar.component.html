@@ -1,8 +1,11 @@
 <p-menubar [model]="items">
-  <button
-    pButton
-    icon="fa fa-sign-out"
-    [label]="authService.token ? 'Logout' : 'Login'"
-    routerLink="/auth"
-  ></button>
+  <div class="endbar">
+    <p *ngIf="username" class="loggedIn">{{ username }}</p>
+    <button
+      pButton
+      icon="fa fa-sign-out"
+      [label]="authService.token ? 'Logout' : 'Login'"
+      (click)="onClick()"
+    ></button>
+  </div>
 </p-menubar>
