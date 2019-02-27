@@ -14,7 +14,7 @@ import { Comment, CommentDTO } from "@app/models/comment";
 export class ApiService {
   private api: string = environment.api_server + "/api";
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   // convert to HttpParams ?
   // would have to make an httpInterceptor for token header

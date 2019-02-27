@@ -2,8 +2,19 @@
   <h2>
     <a [routerLink]="['/recipes', recipe.id]">{{ recipe.title }}</a>
   </h2>
-  <p-header class="updated">Updated: {{ recipe.updated | date }} </p-header>
-  <p>Created by {{ recipe.author?.username }}</p>
+  <p-header class="options" *ngIf="displayOptions">
+    <button 
+    pButton
+    routerLink="['/recipes', recipe.id, 'edit']"
+    icon="fa fa-pencil"
+    class="ui-button-secondary"></button>
+    <button 
+    pButton
+    (click)="onDelete.emit()"
+    icon="fa fa-trash"
+    class="ui-button-danger"></button>
+  </p-header>
+  <p class="created">Created by {{ recipe.author?.username }} on {{recipe.created | date}}</p>
   <div class="desc">{{ recipe.description }}</div>
   <p-footer>
     <button
@@ -24,7 +35,6 @@
     </a>
     <button
       pButton
-      label="bookmark"
       icon="fa fa-bookmark"
       class="ui-button-warning"
       style="float: right"

@@ -7,6 +7,7 @@ import { ButtonModule } from "primeng/button";
 import { ToastModule } from "primeng/toast";
 import { MessageService } from "primeng/components/common/messageservice";
 import { MenubarModule } from "primeng/menubar";
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RecipeComponent } from "./components/recipe/recipe.component";
 
 @NgModule({
@@ -17,7 +18,8 @@ import { RecipeComponent } from "./components/recipe/recipe.component";
     InputTextModule,
     ButtonModule,
     ToastModule,
-    MenubarModule
+    MenubarModule,
+    ProgressSpinnerModule
   ],
   exports: [
     CardModule,
@@ -25,8 +27,9 @@ import { RecipeComponent } from "./components/recipe/recipe.component";
     ButtonModule,
     ToastModule,
     MenubarModule,
-    RecipeComponent
+    RecipeComponent,
+    ProgressSpinnerModule
   ],
   providers: [MessageService]
 })
-export class UIModule {}
+export class UIModule { }

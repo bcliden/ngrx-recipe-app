@@ -4,6 +4,7 @@ import { Recipe, RecipeDTO } from "@app/models/recipe";
 export enum RecipeActionTypes {
   LOAD_RECIPES = "[Recipe] Load Recipes",
   LOAD_RECIPES_SUCCESS = "[Recipe] Load Recipes Success",
+  LOAD_RECIPES_FAILED = "[Recipe] Load Recipes Failed",
 
   LOAD_RECIPE = "[Recipe] Load Recipe",
   LOAD_RECIPE_SUCCESS = "[Recipe] Load Recipe Success",
@@ -28,66 +29,71 @@ export class LoadRecipes implements Action {
 
 export class LoadRecipesSuccess implements Action {
   readonly type = RecipeActionTypes.LOAD_RECIPES_SUCCESS;
-  constructor(public payload: Recipe[]) {}
+  constructor(public payload: Recipe[]) { }
+}
+
+export class LoadRecipesFailed implements Action {
+  readonly type = RecipeActionTypes.LOAD_RECIPES_FAILED;
 }
 
 export class LoadRecipe implements Action {
   readonly type = RecipeActionTypes.LOAD_RECIPE;
-  constructor(public payload: string) {}
+  constructor(public payload: string) { }
 }
 
 export class LoadRecipeSuccess implements Action {
   readonly type = RecipeActionTypes.LOAD_RECIPE_SUCCESS;
-  constructor(public payload?: Recipe) {}
+  constructor(public payload?: Recipe) { }
 }
 
 // create
 export class CreateRecipe implements Action {
   readonly type = RecipeActionTypes.CREATE_RECIPE;
-  constructor(public payload: RecipeDTO) {}
+  constructor(public payload: RecipeDTO) { }
 }
 
 export class CreateRecipeSuccess implements Action {
   readonly type = RecipeActionTypes.CREATE_RECIPE_SUCCESS;
-  constructor(public payload: Recipe) {}
+  constructor(public payload: Recipe) { }
 }
 
 // update
 export class UpdateRecipe implements Action {
   readonly type = RecipeActionTypes.UPDATE_RECIPE;
-  constructor(public payload: Partial<RecipeDTO>) {}
+  constructor(public payload: Partial<RecipeDTO>) { }
 }
 
 export class UpdateRecipeSuccess implements Action {
   readonly type = RecipeActionTypes.UPDATE_RECIPE_SUCCESS;
-  constructor(public payload: Recipe) {}
+  constructor(public payload: Recipe) { }
 }
 
 // delete
 export class DeleteRecipe implements Action {
   readonly type = RecipeActionTypes.DELETE_RECIPE;
-  constructor(public payload: string) {}
+  constructor(public payload: string) { }
 }
 
 export class DeleteRecipeSuccess implements Action {
   readonly type = RecipeActionTypes.DELETE_RECIPE_SUCCESS;
-  constructor(public payload: string) {}
+  constructor(public payload: string) { }
 }
 
 // voting
 export class UpvoteRecipe implements Action {
   readonly type = RecipeActionTypes.UPVOTE_RECIPE;
-  constructor(public payload: string) {}
+  constructor(public payload: string) { }
 }
 
 export class DownvoteRecipe implements Action {
   readonly type = RecipeActionTypes.DOWNVOTE_RECIPE;
-  constructor(public payload: string) {}
+  constructor(public payload: string) { }
 }
 
 export type ActionsUnion =
   | LoadRecipes
   | LoadRecipesSuccess
+  | LoadRecipesFailed
   | LoadRecipe
   | LoadRecipeSuccess
   | CreateRecipe

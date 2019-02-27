@@ -9,13 +9,17 @@ import { Recipe } from "@app/models/recipe";
 export class RecipeComponent implements OnInit {
   @Input()
   recipe: Recipe;
+  @Input()
+  displayOptions: boolean = false;
 
+  @Output()
+  onDelete: EventEmitter<void> = new EventEmitter();
   @Output()
   onUpvote: EventEmitter<void> = new EventEmitter();
   @Output()
   onDownvote: EventEmitter<void> = new EventEmitter();
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }

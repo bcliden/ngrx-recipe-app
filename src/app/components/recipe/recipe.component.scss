@@ -4,8 +4,23 @@
   font-style: italic;
 }
 
+.options {
+  float: right;
+}
+
+.options button {
+  margin-top: 1rem;
+  margin-right: 1rem;
+}
+
+.created {
+  font-style: italic;
+  margin-bottom: .25rem;
+}
+
 .desc {
-  max-width: 80%;
+  max-width: 600px;
+  width: 100%;
   text-align: justify;
 }
 

@@ -19,7 +19,8 @@ import {
   LoadRecipe,
   LoadRecipeSuccess,
   UpvoteRecipe,
-  DownvoteRecipe
+  DownvoteRecipe,
+  LoadRecipesFailed
 } from "./recipe.actions";
 import { RemoveError, AddError } from "@app/store/actions/error.actions";
 
@@ -29,7 +30,7 @@ export class RecipeEffects {
     private action$: Actions,
     private store: Store<AppState>,
     private apiService: ApiService
-  ) {}
+  ) { }
 
   @Effect()
   loadRecipes$: Observable<Action> = this.action$.pipe(
@@ -107,7 +108,9 @@ export class RecipeEffects {
     mergeMap(action =>
       this.apiService.upvoteRecipe(action.payload).pipe(
         map(recipe => new UpdateRecipeSuccess(recipe)),
-        catchError(err => of(new AddError(err.error)))
+        catchError(err => {
+          return of(new AddError(err.error), new LoadRecipesFailed)
+        })
       )
     )
   );
@@ -119,7 +122,9 @@ export class RecipeEffects {
     mergeMap(action =>
       this.apiService.downvoteRecipe(action.payload).pipe(
         map(recipe => new UpdateRecipeSuccess(recipe)),
-        catchError(err => of(new AddError(err.error)))
+        catchError(err => {
+          return of(new AddError(err.error), new LoadRecipesFailed);
+        })
       )
     )
   );

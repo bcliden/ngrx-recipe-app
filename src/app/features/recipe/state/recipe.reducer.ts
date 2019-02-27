@@ -49,6 +49,12 @@ export function recipeReducer(
         loading: false
       };
 
+    case RecipeActionTypes.LOAD_RECIPES_FAILED:
+      return {
+        ...state,
+        loading: false
+      }
+
     case RecipeActionTypes.CREATE_RECIPE_SUCCESS:
       return {
         ...state,

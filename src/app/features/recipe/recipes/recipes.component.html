@@ -1,7 +1,18 @@
-<div *ngIf="!(loading | async)">
+<button
+*ngIf="currentUser"
+pButton
+[routerLink]="['/ideas', 'new']"
+label="Create New Idea"
+class="ui-button-info"
+></button>
+
+<p-progressSpinner *ngIf="(loading$ | async)"></p-progressSpinner>
+
+<div *ngIf="!(loading$ | async)">
   <app-recipe
-    *ngFor="let recipe of recipes"
+    *ngFor="let recipe of recipes$ | async"
     [recipe]="recipe"
+    [displayOptions]="recipe.author.id === currentUser?.id"
     (onUpvote)="upvote(recipe.id)"
     (onDownvote)="downvote(recipe.id)"
   ></app-recipe>
