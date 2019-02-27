@@ -1,14 +1,15 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { AppState } from "../state";
-import { Store, select } from "@ngrx/store";
+import { Store } from "@ngrx/store";
 import {
   selectCurrentRecipe,
   selectRecipeLoader
 } from "../state/recipe.selector";
-import { Subscription, Observable, Subject } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { Recipe } from "@app/models/recipe";
 import { takeUntil } from "rxjs/operators";
 import { UpvoteRecipe, DownvoteRecipe } from "../state/recipe.actions";
+import { User } from "@app/models/user";
 
 @Component({
   selector: "app-selected-recipe",
@@ -17,18 +18,24 @@ import { UpvoteRecipe, DownvoteRecipe } from "../state/recipe.actions";
 })
 export class SelectedRecipeComponent implements OnInit, OnDestroy {
   selectedRecipe: Recipe;
+  currentUser: User;
   loading$: Observable<boolean>;
   private unsubscribe$ = new Subject<void>();
 
   constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    const recipe$ = this.store
+    this.loading$ = this.store.select(selectRecipeLoader);
+
+    this.store
       .select(selectCurrentRecipe)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(val => (this.selectedRecipe = val));
 
-    this.loading$ = this.store.select(selectRecipeLoader);
+    this.store
+      .select(state => state.auth.user)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(user => (this.currentUser = user));
   }
 
   ngOnDestroy() {

@@ -27,9 +27,11 @@ export function recipeReducer(
     case RecipeActionTypes.DELETE_RECIPE:
       return { ...state, loading: true };
     case RecipeActionTypes.UPVOTE_RECIPE:
-      return { ...state, loading: true };
+      // don't set loading or page will reset
+      return { ...state };
     case RecipeActionTypes.DOWNVOTE_RECIPE:
-      return { ...state, loading: true };
+      // don't set loading or page will reset
+      return { ...state };
 
     case RecipeActionTypes.LOAD_RECIPES_SUCCESS:
       return {

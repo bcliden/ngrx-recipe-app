@@ -12,7 +12,7 @@ import {
 } from "../state/recipe.actions";
 import { selectAllRecipes, selectRecipeLoader } from "../state/recipe.selector";
 import { takeUntil, tap } from "rxjs/operators";
-import { User } from '@app/models/user';
+import { User } from "@app/models/user";
 
 @Component({
   selector: "app-recipes",
@@ -20,22 +20,23 @@ import { User } from '@app/models/user';
   styleUrls: ["./recipes.component.scss"]
 })
 export class RecipesComponent implements OnInit, OnDestroy {
-  recipes$: Observable<Recipe[]>;
+  // recipes$: Observable<Recipe[]>;
+  recipes: Recipe[];
   loading$: Observable<boolean>;
   auth$: Subscription;
   currentUser: User;
   private unsubscribe$ = new Subject<void>();
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
     this.store.dispatch(new LoadRecipes());
 
-    this.recipes$ = this.store.select(selectAllRecipes);
+    // this.recipes$ = this.store.select(selectAllRecipes);
 
-    // const recipes$ = this.store
-    //   .select(selectAllRecipes)
-    //   .pipe(takeUntil(this.unsubscribe$))
-    //   .subscribe(val => (this.recipes = val));
+    this.store
+      .select(selectAllRecipes)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(val => (this.recipes = val));
 
     this.loading$ = this.store.select(selectRecipeLoader);
 
@@ -55,5 +56,9 @@ export class RecipesComponent implements OnInit, OnDestroy {
   }
   downvote(id: string) {
     this.store.dispatch(new DownvoteRecipe(id));
+  }
+  delete(id: string) {
+    console.log("deleted recipe by id ", id);
+    // this.store.dispatch(new DeleteRecipe(id));
   }
 }

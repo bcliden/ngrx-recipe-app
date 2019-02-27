@@ -6,11 +6,12 @@ import { AuthType, AuthDTO } from "@app/models/auth";
 import { Observable } from "rxjs";
 import { User } from "@app/models/user";
 import { mergeMap, tap } from "rxjs/operators";
+import { CanActivate } from "@angular/router";
 
 @Injectable({
   providedIn: "root"
 })
-export class AuthService {
+export class AuthService implements CanActivate {
   private api: string = environment.api_server + "/auth";
 
   private auth(authType: AuthType, data: AuthDTO): Observable<User> {
@@ -46,5 +47,12 @@ export class AuthService {
     } else {
       localStorage.clear();
     }
+  }
+
+  canActivate() {
+    if (this.token) {
+      return true;
+    }
+    return false;
   }
 }

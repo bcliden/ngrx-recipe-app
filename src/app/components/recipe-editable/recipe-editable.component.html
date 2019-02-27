@@ -1,0 +1,27 @@
+<p-card>
+  <form class="Form" [formGroup]="recipeForm" (ngSubmit)="submit()">
+    <div class="Form-input">
+      <label for="recipe"><h4>Title</h4></label>
+      <input
+        pInputText
+        type="text"
+        formControlName="title"
+        placeholder="Recipe name"
+        name="title"
+      />
+    </div>
+    <div class="Form-input">
+      <label for="description"><h4>Description</h4></label>
+      <textarea
+        pInputTextArea
+        [rows]="5"
+        [cols]="30"
+        autoResize="autoResize"
+        formControlName="description"
+        placeholder="Description"
+        name="description"
+      ></textarea>
+    </div>
+    <button pButton type="submit" label="Submit" [disabled]="recipeForm.invalid"></button>
+  </form>
+</p-card>

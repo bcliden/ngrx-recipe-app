@@ -1,6 +1,6 @@
 <p-menubar [model]="items">
   <div class="endbar">
-    <p *ngIf="username" class="loggedIn">{{ username }}</p>
+    <p class="loggedIn">{{ username ? username : 'not logged in' }}</p>
     <button
       pButton
       icon="fa fa-sign-out"

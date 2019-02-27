@@ -23,14 +23,16 @@ import {
   LoadRecipesFailed
 } from "./recipe.actions";
 import { RemoveError, AddError } from "@app/store/actions/error.actions";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class RecipeEffects {
   constructor(
     private action$: Actions,
     private store: Store<AppState>,
-    private apiService: ApiService
-  ) { }
+    private apiService: ApiService,
+    private router: Router
+  ) {}
 
   @Effect()
   loadRecipes$: Observable<Action> = this.action$.pipe(
@@ -109,7 +111,7 @@ export class RecipeEffects {
       this.apiService.upvoteRecipe(action.payload).pipe(
         map(recipe => new UpdateRecipeSuccess(recipe)),
         catchError(err => {
-          return of(new AddError(err.error), new LoadRecipesFailed)
+          return of(new AddError(err.error), new LoadRecipesFailed());
         })
       )
     )
@@ -123,9 +125,15 @@ export class RecipeEffects {
       this.apiService.downvoteRecipe(action.payload).pipe(
         map(recipe => new UpdateRecipeSuccess(recipe)),
         catchError(err => {
-          return of(new AddError(err.error), new LoadRecipesFailed);
+          return of(new AddError(err.error), new LoadRecipesFailed());
         })
       )
     )
+  );
+
+  @Effect({ dispatch: false })
+  createIdeaRedirect$ = this.action$.pipe(
+    ofType<CreateRecipeSuccess>(RecipeActionTypes.CREATE_RECIPE_SUCCESS),
+    tap(action => this.router.navigate(["/recipes", action.payload.id]))
   );
 }

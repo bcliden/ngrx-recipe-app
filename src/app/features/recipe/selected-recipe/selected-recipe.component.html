@@ -1,6 +1,7 @@
 <ng-container *ngIf="!(loading | async) && selectedRecipe">
   <app-recipe
     [recipe]="selectedRecipe"
+    [displayOptions]="currentUser.id === selectedRecipe.author.id"
     (onUpvote)="upvote(selectedRecipe.id)"
     (onDownvote)="downvote(selectedRecipe.id)"
   ></app-recipe>

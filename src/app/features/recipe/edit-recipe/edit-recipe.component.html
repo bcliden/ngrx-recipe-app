@@ -1,0 +1,10 @@
+<h2>Edit Recipe</h2>
+
+<p-progressSpinner *ngIf="(loading | async) || processSubmission"></p-progressSpinner>
+
+<div *ngIf="recipe && !processSubmission">
+  <app-recipe [recipe]="recipe" [displayOptions]="true"></app-recipe>
+  <app-recipe-editable
+    [recipe]="recipe"
+    (onSubmit)="submit($event)"></app-recipe-editable>
+</div>
